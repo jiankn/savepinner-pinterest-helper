@@ -13,7 +13,7 @@ A small, open-source userscript that adds a private helper panel to Pinterest Pi
 ## Install
 
 1. Install a userscript manager such as Tampermonkey or Violentmonkey.
-2. Install the script from its Greasy Fork page (link will be added after publication).
+2. [Install the script from Greasy Fork](https://greasyfork.org/scripts/589357-savepinner-pinterest-helper).
 3. Open a Pinterest Pin page and click the red **SP** button in the lower-right corner.
 
 The source file is [`savepinner-pinterest-helper.user.js`](./savepinner-pinterest-helper.user.js).
@@ -32,6 +32,7 @@ npm test
 
 ## Links
 
+- [Greasy Fork script page](https://greasyfork.org/scripts/589357-savepinner-pinterest-helper)
 - [SavePinner Pinterest Downloader](https://savepinner.com/pinterest-downloader/)
 - [Report an issue](https://github.com/jiankn/savepinner-pinterest-helper/issues)
 
