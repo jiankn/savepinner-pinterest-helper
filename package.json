@@ -1,0 +1,10 @@
+{
+  "name": "savepinner-pinterest-helper",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Validation tooling for the SavePinner Pinterest Helper userscript",
+  "scripts": {
+    "test": "node --check savepinner-pinterest-helper.user.js && node test/check.mjs"
+  },
+  "license": "MIT"
+}
