@@ -1,11 +1,11 @@
 // ==UserScript==
 // @name         SavePinner Pinterest Helper
 // @namespace    https://savepinner.com/
-// @version      0.1.0
+// @version      0.1.1
 // @description  Copy clean Pinterest Pin and media URLs, then continue in SavePinner when needed.
 // @author       jiankn
 // @license      MIT
-// @include      /^https:\/\/(?:www\.)?pinterest\.(?:com|at|ca|ch|cl|co\.kr|co\.uk|com\.au|com\.mx|de|dk|es|fi|fr|ie|it|jp|nl|nz|ph|pt|ru|se)\/pin\//
+// @include      /^https:\/\/(?:www\.)?pinterest\.(?:com|at|ca|ch|cl|co\.kr|co\.uk|com\.au|com\.mx|de|dk|es|fi|fr|ie|it|jp|nl|nz|ph|pt|ru|se)\/.*$/
 // @homepageURL  https://savepinner.com/pinterest-downloader/
 // @supportURL   https://github.com/jiankn/savepinner-pinterest-helper/issues
 // @source       https://github.com/jiankn/savepinner-pinterest-helper

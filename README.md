@@ -7,7 +7,7 @@ A small, open-source userscript that adds a private helper panel to Pinterest Pi
 - Extracts and copies a clean, canonical Pin URL.
 - Detects public image or video URLs exposed in the page metadata.
 - Copies the current Pin URL and opens the SavePinner Pinterest downloader.
-- Works with Pinterest's client-side navigation.
+- Works with Pinterest's client-side navigation without requiring a page refresh.
 - Uses no analytics, remote code, or external assets.
 
 ## Install

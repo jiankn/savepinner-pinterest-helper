@@ -8,7 +8,7 @@ const script = await readFile(
 
 for (const marker of [
   "// ==UserScript==",
-  "// @version      0.1.0",
+  "// @version      0.1.1",
   "// @license      MIT",
   "// @homepageURL  https://savepinner.com/pinterest-downloader/",
   "// @supportURL   https://github.com/jiankn/savepinner-pinterest-helper/issues",
@@ -23,5 +23,7 @@ assert.ok(!/\beval\s*\(/.test(script), "eval() is not allowed");
 assert.ok(!/utm_(?:source|medium|campaign)=/.test(script), "Tracking parameters are not allowed");
 assert.ok(script.includes("Copy clean Pin URL"), "The script needs standalone functionality");
 assert.ok(script.includes("Copy URL & open SavePinner"), "The product workflow is missing");
+assert.ok(script.includes("pinterest\\."), "Pinterest navigation coverage is missing");
+assert.ok(script.includes("if (pin) createInterface(pin)"), "Non-Pin pages must not show the interface");
 
 console.log("Userscript metadata and policy checks passed.");
