@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Installation and usage guide for the open-source SavePinner Pinterest Helper userscript.">
+    <title>SavePinner Pinterest Helper — Installation Guide</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: #241f20;
+        background: #f6f3f1;
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; }
+      main {
+        width: min(760px, calc(100% - 32px));
+        margin: 56px auto;
+        padding: 40px;
+        background: #fff;
+        border: 1px solid #e7dfdc;
+        border-radius: 18px;
+        box-shadow: 0 18px 55px rgba(64, 39, 42, .08);
+      }
+      h1 { margin: 0 0 12px; font-size: clamp(2rem, 6vw, 3.25rem); line-height: 1.05; }
+      h2 { margin-top: 34px; }
+      p, li { line-height: 1.7; }
+      a { color: #b3162b; text-underline-offset: 3px; }
+      .eyebrow { color: #b3162b; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+      .actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 28px 0; }
+      .actions a {
+        padding: 11px 16px;
+        border: 1px solid #b3162b;
+        border-radius: 999px;
+        font-weight: 700;
+        text-decoration: none;
+      }
+      .actions a:first-child { color: #fff; background: #b3162b; }
+      code { padding: 2px 6px; border-radius: 5px; background: #f2eeec; }
+      footer { margin-top: 38px; padding-top: 20px; border-top: 1px solid #ece5e2; color: #6b6264; }
+      @media (max-width: 560px) { main { margin: 20px auto; padding: 25px; } }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p class="eyebrow">Open-source userscript</p>
+      <h1>SavePinner Pinterest Helper</h1>
+      <p>
+        A small browser helper for copying canonical Pinterest Pin URLs, detecting
+        public media metadata, and continuing a download in SavePinner when needed.
+      </p>
+
+      <div class="actions">
+        <a href="https://greasyfork.org/scripts/589357-savepinner-pinterest-helper">Install from Greasy Fork</a>
+        <a href="https://github.com/jiankn/savepinner-pinterest-helper">View source on GitHub</a>
+      </div>
+
+      <h2>Install</h2>
+      <ol>
+        <li>Install Tampermonkey or Violentmonkey in your browser.</li>
+        <li>Open the Greasy Fork page above and choose <strong>Install this script</strong>.</li>
+        <li>Visit a Pinterest Pin page and select the red <strong>SP</strong> button.</li>
+      </ol>
+
+      <h2>What it does</h2>
+      <ul>
+        <li>Copies a clean, canonical Pin URL.</li>
+        <li>Copies public image or video URLs exposed in page metadata.</li>
+        <li>Handles Pinterest's client-side navigation without a page refresh.</li>
+        <li>Opens the <a href="https://savepinner.com/pinterest-downloader/">SavePinner Pinterest Downloader</a> only after an explicit click.</li>
+      </ul>
+
+      <h2>Privacy</h2>
+      <p>
+        The helper runs locally in the browser. It contains no analytics, remote
+        code, or external assets, and it does not transmit browsing history.
+      </p>
+
+      <h2>Development</h2>
+      <p>Clone the repository and run <code>npm test</code> to validate the userscript metadata and syntax.</p>
+
+      <footer>MIT licensed · Maintained by SavePinner contributors</footer>
+    </main>
+  </body>
+</html>
