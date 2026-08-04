@@ -6,7 +6,9 @@ A small, open-source userscript that adds a private helper panel to Pinterest Pi
 
 - Extracts and copies a clean, canonical Pin URL.
 - Detects public image or video URLs exposed in the page metadata.
-- Copies the current Pin URL and opens the SavePinner Pinterest downloader.
+- Routes a detected image Pin to the [SavePinner image downloader](https://savepinner.com/),
+  a video Pin to the [Pinterest video downloader](https://savepinner.com/pinterest-video-downloader/),
+  and an unknown media type to the general downloader.
 - Works with Pinterest's client-side navigation without requiring a page refresh.
 - Uses no analytics, remote code, or external assets.
 
@@ -33,7 +35,6 @@ npm test
 ## Links
 
 - [Greasy Fork script page](https://greasyfork.org/scripts/589357-savepinner-pinterest-helper)
-- [SavePinner Pinterest Downloader](https://savepinner.com/pinterest-downloader/)
 - [Report an issue](https://github.com/jiankn/savepinner-pinterest-helper/issues)
 
 ## License

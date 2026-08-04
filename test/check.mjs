@@ -8,9 +8,9 @@ const script = await readFile(
 
 for (const marker of [
   "// ==UserScript==",
-  "// @version      0.1.1",
+  "// @version      0.1.2",
   "// @license      MIT",
-  "// @homepageURL  https://savepinner.com/pinterest-downloader/",
+  "// @homepageURL  https://savepinner.com/",
   "// @supportURL   https://github.com/jiankn/savepinner-pinterest-helper/issues",
   "// @grant        GM_setClipboard",
   "// @grant        GM_openInTab",
@@ -23,6 +23,15 @@ assert.ok(!/\beval\s*\(/.test(script), "eval() is not allowed");
 assert.ok(!/utm_(?:source|medium|campaign)=/.test(script), "Tracking parameters are not allowed");
 assert.ok(script.includes("Copy clean Pin URL"), "The script needs standalone functionality");
 assert.ok(script.includes("Copy URL & open SavePinner"), "The product workflow is missing");
+assert.ok(script.includes('Image: "https://savepinner.com/"'), "Image Pins must open the homepage");
+assert.ok(
+  script.includes('Video: "https://savepinner.com/pinterest-video-downloader/"'),
+  "Video Pins must open the video downloader",
+);
+assert.ok(
+  script.includes('Default: "https://savepinner.com/pinterest-downloader/"'),
+  "Unknown media types must retain the general downloader fallback",
+);
 assert.ok(script.includes("pinterest\\."), "Pinterest navigation coverage is missing");
 assert.ok(script.includes("if (pin) createInterface(pin)"), "Non-Pin pages must not show the interface");
 

@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name         SavePinner Pinterest Helper
 // @namespace    https://savepinner.com/
-// @version      0.1.1
+// @version      0.1.2
 // @description  Copy clean Pinterest Pin and media URLs, then continue in SavePinner when needed.
 // @author       jiankn
 // @license      MIT
 // @include      /^https:\/\/(?:www\.)?pinterest\.(?:com|at|ca|ch|cl|co\.kr|co\.uk|com\.au|com\.mx|de|dk|es|fi|fr|ie|it|jp|nl|nz|ph|pt|ru|se)\/.*$/
-// @homepageURL  https://savepinner.com/pinterest-downloader/
+// @homepageURL  https://savepinner.com/
 // @supportURL   https://github.com/jiankn/savepinner-pinterest-helper/issues
 // @source       https://github.com/jiankn/savepinner-pinterest-helper
 // @grant        GM_setClipboard
@@ -17,7 +17,11 @@
 (function () {
   "use strict";
 
-  const PRODUCT_URL = "https://savepinner.com/pinterest-downloader/";
+  const PRODUCT_URLS = Object.freeze({
+    Image: "https://savepinner.com/",
+    Video: "https://savepinner.com/pinterest-video-downloader/",
+    Default: "https://savepinner.com/pinterest-downloader/",
+  });
   const HOST_ID = "savepinner-pinterest-helper";
   const ROOT_DOMAINS = new Set([
     "pinterest.com",
@@ -124,12 +128,13 @@
     await navigator.clipboard.writeText(value);
   }
 
-  function openProduct() {
+  function openProduct(mediaType) {
+    const productUrl = PRODUCT_URLS[mediaType] || PRODUCT_URLS.Default;
     if (typeof GM_openInTab === "function") {
-      GM_openInTab(PRODUCT_URL, { active: true, insert: true });
+      GM_openInTab(productUrl, { active: true, insert: true });
       return;
     }
-    window.open(PRODUCT_URL, "_blank", "noopener,noreferrer");
+    window.open(productUrl, "_blank", "noopener,noreferrer");
   }
 
   function createInterface(pin) {
@@ -225,7 +230,7 @@
         } catch {
           status.textContent = "Opening SavePinner. Copy the URL above manually.";
         }
-        openProduct();
+        openProduct(media?.type);
       }),
     );
 
