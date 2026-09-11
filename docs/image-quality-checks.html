@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Check a saved Pinterest image: dimensions, format and missing detail</title>
+<meta name="description" content="A practical troubleshooting guide for small, blurry, static or unexpectedly formatted images saved from public Pinterest Pins.">
+<meta name="robots" content="index, follow"><link rel="canonical" href="https://jiankn.github.io/savepinner-pinterest-helper/image-quality-checks.html">
+<style>body{font:17px/1.65 system-ui,sans-serif;color:#242424;background:#faf8f6;margin:0}main{max-width:760px;margin:auto;padding:36px 22px 64px}h1,h2{line-height:1.2}h1{font-size:2.2rem}h2{margin-top:2rem}a{color:#9c1836}table{border-collapse:collapse;width:100%;font-size:.95rem}td,th{border:1px solid #d8d2cd;padding:10px;text-align:left}code{overflow-wrap:anywhere}footer{border-top:1px solid #d8d2cd;margin-top:32px;padding-top:16px}</style></head>
+<body><main><nav><a href="./">Pinterest Helper installation guide</a></nav>
+<h1>Check a saved Pinterest image before blaming the download</h1>
+<p>A saved file can open correctly and still be the wrong rendition for your task. A feed thumbnail, a video cover and the largest available photo may all look similar on a small screen. Use the checks below to identify what you actually saved.</p>
+<h2>1. Compare pixels, not just file size</h2>
+<p>Open the file's properties or your image editor and read its width and height. A 236-pixel-wide preview has less room for detail than a 736-pixel-wide rendition. A larger byte count does not by itself prove better quality: format, compression and image content affect size.</p>
+<p>For a simple check, display the image at 100% zoom. If it is sharp there but blurry when enlarged, you may be stretching a small source. For example, displaying a 236-pixel image across a 944-pixel area requires a fourfold increase in width; it cannot recover detail that was never in the file. A high-density screen can also require more source pixels than the displayed CSS width.</p>
+<h2>2. Return to the individual Pin</h2>
+<p>Open the public Pin rather than saving a screenshot of a feed card. Copy its link again and compare the media options it exposes. If you use the helper, a copied metadata URL may identify a preview; it does not promise the largest rendition.</p>
+<p>For this comparison, the SavePinner team maintains the <a href="https://savepinner.com">Pinterest image downloader</a>. Choose among the verified sizes actually offered. An Original option is conditional on the source being available; the tool cannot create a larger original from a small upload.</p>
+<h2>3. Check the format before converting</h2>
+<p>Read the file type reported by an image viewer, not only its extension. A WebP image is not broken because another app expects JPEG. Open it in a compatible viewer, and export a separate copy only if your destination requires another format. Renaming <code>.webp</code> to <code>.jpg</code> does not convert the image.</p>
+<p>Keep the source copy while testing. Repeated lossy exports can discard detail. If transparency matters, verify it before choosing an output format; a conversion can replace transparent areas with a solid background.</p>
+<h2>4. Separate a still cover from animation</h2>
+<p>A moving Pin can expose a video, a GIF, or a static cover. Saving the cover does not save the animation. If the returned file is a still image, inspect whether a video or animated source is actually available. Changing the suffix to <code>.gif</code> cannot add frames, and a tool should not claim to have saved a video when it returned only an image.</p>
+<h2>Quick diagnosis</h2>
+<table><thead><tr><th>Symptom</th><th>Check</th><th>Next action</th></tr></thead><tbody>
+<tr><td>Blurry when enlarged</td><td>Source pixel dimensions and 100% zoom</td><td>Try a larger available rendition; keep expectations bounded by the source.</td></tr>
+<tr><td>Works in one app only</td><td>Detected format and application support</td><td>Use a compatible viewer or export a separate converted copy.</td></tr>
+<tr><td>Animation became a still</td><td>Whether the file is a cover image</td><td>Look for an actual video or animated option on the public Pin.</td></tr>
+<tr><td>Watermark still visible</td><td>Whether it is embedded in the source</td><td>Do not expect a download to remove creator markings.</td></tr>
+<tr><td>No working source</td><td>Whether the individual Pin remains public and available</td><td>Stop; a stale preview does not prove the media is still accessible.</td></tr>
+</tbody></table>
+<h2>Save a useful comparison record</h2>
+<p>Record the Pin URL, date, chosen option, detected format, dimensions and the app where you saw the issue. Two files with those details make a better bug report than “HD is blurry.” Do not post a private URL or media you lack permission to share. Download quality and permission to republish are separate questions.</p>
+<footer>Published by SavePinner. This guide supports the open-source Pinterest Helper and does not imply affiliation with Pinterest. <a href="https://github.com/jiankn/savepinner-pinterest-helper">Source repository</a></footer>
+</main></body></html>
