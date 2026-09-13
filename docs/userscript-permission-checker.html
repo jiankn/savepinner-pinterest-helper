@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Userscript Permission Checker</title>
+  <meta name="description" content="Review userscript grants, host matches, remote dependencies, and network permissions locally in your browser.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://jiankn.github.io/savepinner-pinterest-helper/userscript-permission-checker.html">
+  <style>
+    :root{font-family:Inter,system-ui,sans-serif;color:#241f20;background:#f6f3f1}body{max-width:820px;margin:auto;padding:48px 20px}main{background:white;border:1px solid #e7dfdc;border-radius:18px;padding:34px;box-shadow:0 18px 55px #40272a14}h1{font-size:clamp(2rem,6vw,3.2rem);line-height:1;margin:0 0 16px}p,li{line-height:1.65}textarea{box-sizing:border-box;width:100%;min-height:230px;padding:14px;border:1px solid #b9a9ab;border-radius:10px;font:14px ui-monospace,monospace}button{margin:14px 0;border:0;border-radius:10px;padding:12px 18px;background:#b3162b;color:white;font-weight:700;cursor:pointer}.result{padding:18px;border-radius:12px;background:#f7eeee;white-space:pre-wrap}.muted{color:#6b6264}a{color:#a50f25}
+  </style>
+</head>
+<body><main>
+  <p class="muted">Local metadata audit</p>
+  <h1>Userscript Permission Checker</h1>
+  <p>Paste a userscript metadata block to review grants, host scope, network access, and remote code dependencies. The text stays in this browser.</p>
+  <textarea id="source" spellcheck="false" placeholder="// ==UserScript==&#10;// @match https://www.pinterest.com/pin/*&#10;// @grant GM_setClipboard&#10;// ==/UserScript=="></textarea>
+  <button id="audit" type="button">Audit permissions</button>
+  <div id="result" class="result" role="status" aria-live="polite">Paste metadata to begin.</div>
+  <p>If the helper identifies a valid Pin and you need its image, continue with this <a href="https://savepinner.com">Pinterest image downloader</a>.</p>
+  <p><a href="./">Return to the installation guide</a></p>
+</main><script src="userscript-permission-checker.js"></script></body>
+</html>
