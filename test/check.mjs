@@ -36,3 +36,26 @@ assert.ok(script.includes("pinterest\\."), "Pinterest navigation coverage is mis
 assert.ok(script.includes("if (pin) createInterface(pin)"), "Non-Pin pages must not show the interface");
 
 console.log("Userscript metadata and policy checks passed.");
+
+const scorerSource = await readFile(
+  new URL("../docs/image-candidate-scorer.js", import.meta.url),
+  "utf8",
+);
+globalThis.imageCandidateScorer = undefined;
+Function(scorerSource)();
+const { rankCandidates } = globalThis.imageCandidateScorer;
+const ranked = rankCandidates([
+  { url: "https://i.pinimg.com/originals/pin.jpg", source: "structured", width: 1200, height: 1800, primary: true },
+  { url: "https://i.pinimg.com/75x75/avatar.jpg", source: "fallback", width: 75, height: 75, avatar: true },
+]);
+assert.match(ranked[0].url, /pin\.jpg$/, "Primary Pin image should outrank an avatar");
+assert.ok(ranked[0].score > ranked[1].score, "Scoring should penalize distractors");
+
+const scorerHtml = await readFile(
+  new URL("../docs/image-candidate-scorer.html", import.meta.url),
+  "utf8",
+);
+assert.ok(scorerHtml.includes('<a href="https://savepinner.com">Pinterest image downloader</a>'));
+assert.ok(scorerHtml.includes('content="index,follow"'));
+
+console.log("Image candidate scorer checks passed.");

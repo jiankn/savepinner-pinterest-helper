@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Score and compare Pinterest image candidates by source context, dimensions, and common distractor signals.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://jiankn.github.io/savepinner-pinterest-helper/image-candidate-scorer.html">
+  <title>Pinterest Image Candidate Scorer</title>
+  <style>
+    :root{font-family:Inter,system-ui,sans-serif;color:#211b1d;background:#f6f2f1}*{box-sizing:border-box}body{margin:0}main{width:min(980px,calc(100% - 28px));margin:36px auto;background:#fff;border:1px solid #e5dcda;border-radius:18px;padding:clamp(22px,5vw,42px);box-shadow:0 18px 55px #40272a12}h1{font-size:clamp(2rem,6vw,3.4rem);line-height:1.02;margin:.2em 0}p,li{line-height:1.65}.eyebrow{color:#b3162b;font-weight:800;text-transform:uppercase;letter-spacing:.08em}a{color:#a20f27}table{width:100%;border-collapse:collapse;margin:24px 0}th,td{border-bottom:1px solid #eadfdd;padding:10px 6px;text-align:left}input,select,button{font:inherit}input[type=url]{width:100%;min-width:240px;padding:9px}input[type=number]{width:88px;padding:9px}select{padding:9px}button{border:0;border-radius:999px;padding:11px 18px;color:#fff;background:#b3162b;font-weight:700;cursor:pointer}pre{min-height:90px;padding:18px;border-radius:12px;background:#211b1d;color:#fff;white-space:pre-wrap;overflow-wrap:anywhere}.scroll{overflow-x:auto}.note{padding:15px;border-left:4px solid #b3162b;background:#faf5f4}
+  </style>
+</head>
+<body><main>
+  <p class="eyebrow">Browser-only diagnostic</p>
+  <h1>Pinterest Image Candidate Scorer</h1>
+  <p>Compare image candidates extracted from a public Pin page. The scorer rewards primary structured metadata and useful dimensions while penalizing avatars, related content, and insecure URLs. All values stay in this browser.</p>
+  <div class="scroll"><table><thead><tr><th>Candidate URL</th><th>Source</th><th>Width</th><th>Height</th><th>Primary</th><th>Related</th><th>Avatar</th></tr></thead><tbody>
+    <tr><td><input name="url" type="url" value="https://i.pinimg.com/originals/example.jpg" aria-label="Candidate 1 URL"></td><td><select name="source"><option value="structured">Structured data</option><option value="opengraph">Open Graph</option><option value="main">Main content</option><option value="responsive">Responsive source</option><option value="fallback">Fallback</option></select></td><td><input name="width" type="number" min="0" value="1200"></td><td><input name="height" type="number" min="0" value="1800"></td><td><input name="primary" type="checkbox" checked></td><td><input name="related" type="checkbox"></td><td><input name="avatar" type="checkbox"></td></tr>
+    <tr><td><input name="url" type="url" value="https://i.pinimg.com/75x75/avatar.jpg" aria-label="Candidate 2 URL"></td><td><select name="source"><option value="fallback">Fallback</option><option value="structured">Structured data</option><option value="opengraph">Open Graph</option><option value="main">Main content</option><option value="responsive">Responsive source</option></select></td><td><input name="width" type="number" min="0" value="75"></td><td><input name="height" type="number" min="0" value="75"></td><td><input name="primary" type="checkbox"></td><td><input name="related" type="checkbox"></td><td><input name="avatar" type="checkbox" checked></td></tr>
+  </tbody></table></div>
+  <button id="score" type="button">Rank candidates</button>
+  <pre id="result" aria-live="polite">Choose values, then rank the candidates.</pre>
+  <p class="note">This worksheet ranks already discovered candidates; it does not fetch Pinterest pages or images. Always verify the winning response's content type, signature, dimensions, and final host.</p>
+  <h2>When to compare results</h2>
+  <p>If an integration still returns an avatar or thumbnail, compare the same public Pin with a browser-based <a href="https://savepinner.com">Pinterest image downloader</a>. A mismatch helps isolate candidate discovery, scoring, or asset validation.</p>
+  <h2>Scoring model</h2>
+  <ul><li>Primary structured data receives the strongest source weight.</li><li>Verified pixel area adds a bounded quality signal.</li><li>Avatar-sized squares, related content, and non-HTTPS URLs receive penalties.</li><li>The score is diagnostic guidance; the final response must still decode as an image.</li></ul>
+  <p><a href="./">Return to the helper documentation</a></p>
+</main><script src="image-candidate-scorer.js"></script></body>
+</html>
