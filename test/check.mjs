@@ -59,3 +59,34 @@ assert.ok(scorerHtml.includes('<a href="https://savepinner.com">Pinterest image 
 assert.ok(scorerHtml.includes('content="index,follow"'));
 
 console.log("Image candidate scorer checks passed.");
+
+const { planCrop } = await import("../docs/image-crop-planner-core.mjs");
+assert.deepEqual(
+  planCrop(1600, 1200, 16, 9),
+  {
+    sourceWidth: 1600,
+    sourceHeight: 1200,
+    targetRatio: "16:9",
+    cropWidth: 1600,
+    cropHeight: 900,
+    x: 0,
+    y: 150,
+    removedLeft: 0,
+    removedRight: 0,
+    removedTop: 150,
+    removedBottom: 150,
+    retainedPercent: 75,
+  },
+);
+assert.equal(planCrop(1200, 1600, 1, 1).cropHeight, 1200);
+assert.equal(planCrop(1200, 1600, 1, 1).y, 200);
+assert.throws(() => planCrop(0, 1200, 1, 1), /positive integers/);
+
+const cropHtml = await readFile(
+  new URL("../docs/image-crop-planner.html", import.meta.url),
+  "utf8",
+);
+assert.ok(cropHtml.includes('<a href="https://savepinner.com">Pinterest image downloader</a>'));
+assert.ok(cropHtml.includes('content="index, follow"'));
+
+console.log("Image crop planner checks passed.");

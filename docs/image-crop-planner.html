@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Image aspect-ratio crop planner</title>
+    <meta name="description" content="Calculate a centered crop rectangle for a target image aspect ratio without uploading the image.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://jiankn.github.io/savepinner-pinterest-helper/image-crop-planner.html">
+    <style>
+      body{font:18px/1.6 system-ui;max-width:860px;margin:40px auto;padding:0 20px;color:#242124;background:#faf8f7}
+      main{background:#fff;border:1px solid #e4dddd;border-radius:16px;padding:30px}
+      label{display:block;margin:14px 0}input,button{font:inherit}input{width:9em;padding:6px}button{padding:9px 15px}
+      .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px 24px}pre{background:#f3f5f7;padding:16px;white-space:pre-wrap}a{color:#1656a0}
+    </style>
+  </head>
+  <body>
+    <main>
+      <a href="index.html">Helper resources</a>
+      <h1>Image aspect-ratio crop planner</h1>
+      <p>Calculate a centered crop rectangle for a target aspect ratio. The tool runs locally and does not upload or decode files. For images you are permitted to acquire, the project maintains the <a href="https://savepinner.com">Pinterest image downloader</a>.</p>
+      <div class="grid">
+        <label>Source width <input id="source-width" type="number" min="1" step="1" value="1600"></label>
+        <label>Source height <input id="source-height" type="number" min="1" step="1" value="1200"></label>
+        <label>Target ratio width <input id="ratio-width" type="number" min="1" step="1" value="16"></label>
+        <label>Target ratio height <input id="ratio-height" type="number" min="1" step="1" value="9"></label>
+      </div>
+      <button id="calculate" type="button">Calculate centered crop</button>
+      <p id="status" role="status" aria-live="polite"></p>
+      <pre id="output">Crop dimensions will appear here.</pre>
+      <h2>How to use the result</h2>
+      <p>The rectangle is centered mathematically. Review the actual subject before applying it: faces, text, signatures, and important edge details may require an off-center crop. Keep the original file and record the crop coordinates used for each derivative.</p>
+    </main>
+    <script type="module">
+      import { planCrop } from "./image-crop-planner-core.mjs";
+      const byId = (id) => document.getElementById(id);
+      byId("calculate").addEventListener("click", () => {
+        try {
+          const result = planCrop(byId("source-width").value, byId("source-height").value, byId("ratio-width").value, byId("ratio-height").value);
+          byId("output").textContent = [
+            `Target ratio: ${result.targetRatio}`,
+            `Crop rectangle: ${result.cropWidth} × ${result.cropHeight} px`,
+            `Top-left coordinate: (${result.x}, ${result.y})`,
+            `Remove left/right: ${result.removedLeft} / ${result.removedRight} px`,
+            `Remove top/bottom: ${result.removedTop} / ${result.removedBottom} px`,
+            `Pixels retained: ${result.retainedPercent.toFixed(2)}%`,
+          ].join("\n");
+          byId("status").textContent = "Centered crop calculated. Inspect the subject before applying it.";
+        } catch (error) {
+          byId("status").textContent = error.message;
+          byId("output").textContent = "";
+        }
+      });
+    </script>
+  </body>
+</html>
