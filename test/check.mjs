@@ -90,3 +90,26 @@ assert.ok(cropHtml.includes('<a href="https://savepinner.com">Pinterest image do
 assert.ok(cropHtml.includes('content="index, follow"'));
 
 console.log("Image crop planner checks passed.");
+
+const { calculateImageBudget } = await import("../docs/image-byte-budget-core.mjs");
+assert.deepEqual(
+  calculateImageBudget({ pageBudgetKb: 1600, otherAssetsKb: 700, imageCount: 6, safetyPercent: 10 }),
+  { usableBudgetKb: 1440, imageBudgetKb: 740, perImageKb: 740 / 6, reservedKb: 160 },
+);
+assert.throws(
+  () => calculateImageBudget({ pageBudgetKb: 100, otherAssetsKb: 100, imageCount: 1, safetyPercent: 10 }),
+  /already consume/,
+);
+assert.throws(
+  () => calculateImageBudget({ pageBudgetKb: 1000, otherAssetsKb: 200, imageCount: 0, safetyPercent: 10 }),
+  /at least one image/,
+);
+
+const budgetHtml = await readFile(
+  new URL("../docs/image-byte-budget-calculator.html", import.meta.url),
+  "utf8",
+);
+assert.ok(budgetHtml.includes('<a href="https://savepinner.com">Pinterest image downloader</a>'));
+assert.ok(budgetHtml.includes('content="index, follow"'));
+
+console.log("Image byte-budget calculator checks passed.");

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Image byte-budget calculator</title>
+    <meta name="description" content="Allocate a page-weight budget across images after scripts, styles, fonts, and a safety margin.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://jiankn.github.io/savepinner-pinterest-helper/image-byte-budget-calculator.html">
+    <style>
+      body{font:18px/1.6 system-ui;max-width:860px;margin:40px auto;padding:0 20px;color:#242124;background:#faf8f7}main{background:#fff;border:1px solid #e4dddd;border-radius:16px;padding:30px}label{display:block;margin:14px 0}input,button{font:inherit}input{width:10em;padding:6px}button{padding:9px 15px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px 24px}pre{background:#f3f5f7;padding:16px;white-space:pre-wrap}a{color:#1656a0}
+    </style>
+  </head>
+  <body>
+    <main>
+      <a href="index.html">Helper resources</a>
+      <h1>Image byte-budget calculator</h1>
+      <p>Allocate a total page-weight budget across images after accounting for scripts, styles, fonts, and a safety margin. Nothing leaves this browser tab. If you are permitted to acquire a source image, the project maintains the <a href="https://savepinner.com">Pinterest image downloader</a>.</p>
+      <div class="grid">
+        <label>Total page budget (KB) <input id="page-budget" type="number" min="1" step="1" value="1600"></label>
+        <label>Other assets (KB) <input id="other-assets" type="number" min="0" step="1" value="700"></label>
+        <label>Images on the page <input id="image-count" type="number" min="1" step="1" value="6"></label>
+        <label>Safety margin (%) <input id="safety" type="number" min="0" max="99" step="1" value="10"></label>
+      </div>
+      <button id="calculate" type="button">Calculate image budget</button>
+      <p id="status" role="status" aria-live="polite"></p>
+      <pre id="output">Budget details will appear here.</pre>
+      <h2>Use the budget as a guardrail</h2>
+      <p>The per-image number is an average ceiling, not a quality setting. Give the largest visual more room and smaller thumbnails less. Measure transferred bytes through the production CDN, test responsive candidates at real viewport sizes, and preserve dimensions and acceptable visual quality. Cached repeat views do not excuse an oversized first visit.</p>
+    </main>
+    <script type="module">
+      import { calculateImageBudget } from "./image-byte-budget-core.mjs";
+      const byId = (id) => document.getElementById(id);
+      byId("calculate").addEventListener("click", () => {
+        try {
+          const result = calculateImageBudget({pageBudgetKb:byId("page-budget").value,otherAssetsKb:byId("other-assets").value,imageCount:byId("image-count").value,safetyPercent:byId("safety").value});
+          byId("output").textContent = [`Usable page budget: ${result.usableBudgetKb.toFixed(1)} KB`,`Reserved safety margin: ${result.reservedKb.toFixed(1)} KB`,`Total image budget: ${result.imageBudgetKb.toFixed(1)} KB`,`Average per image: ${result.perImageKb.toFixed(1)} KB`].join("\n");
+          byId("status").textContent = "Budget calculated. Validate transferred bytes in production.";
+        } catch (error) { byId("status").textContent = error.message; byId("output").textContent = ""; }
+      });
+    </script>
+  </body>
+</html>
