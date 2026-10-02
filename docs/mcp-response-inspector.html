@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SavePinner MCP response inspector</title><meta name="description" content="Inspect MCP tool-result JSON locally and distinguish URL classification from downloadable-media evidence.">
+<meta name="robots" content="index, follow"><link rel="canonical" href="https://jiankn.github.io/savepinner-pinterest-helper/mcp-response-inspector.html">
+<style>body{font:18px/1.6 system-ui;max-width:850px;margin:40px auto;padding:0 20px;color:#242124}textarea{width:100%;min-height:250px;box-sizing:border-box;font:15px monospace}button{font:inherit;padding:10px}pre{white-space:pre-wrap;background:#f3f5f7;padding:20px}a{color:#1656a0}</style></head>
+<body><main><a href="index.html">Helper resources</a><h1>MCP response inspector</h1>
+<p>Paste a SavePinner MCP tool result or JSON-RPC response. This tool checks its shape locally; it does not contact a server, validate domain ownership or retrieve media. If a separate permitted workflow confirms an image Pin, the project provides the <a href="https://savepinner.com">Pinterest image downloader</a>.</p>
+<label for="response">Response JSON</label><textarea id="response" spellcheck="false">{"structuredContent":{"kind":"pin","normalizedUrl":"https://www.pinterest.com/pin/123456789/"}}</textarea>
+<p><button id="inspect">Inspect response</button> <button id="clear">Clear</button></p><pre id="output" aria-live="polite">Ready.</pre>
+<h2>Interpret the boundary</h2><p>A successful tool call can recognize a board, profile or short link. Those results do not identify a downloadable image. Even a Pin classification establishes URL syntax only. This inspector never marks a result download-ready.</p>
+<p>Protocol errors, tool execution errors and unsupported URLs require different handling. Use structuredContent when available; a text block may contain prose or an error message. Avoid pasting tokens or personal data. Clearing the field removes this tab's displayed input; no localStorage or network requests are used.</p>
+<p>MIT licensed. <a href="https://github.com/jiankn/savepinner-pinterest-helper">Source and issue tracker</a>.</p>
+</main><script type="module">import {inspectResponse} from './mcp-response-core.mjs';const input=document.querySelector('#response'),out=document.querySelector('#output');document.querySelector('#inspect').onclick=()=>{try{out.textContent=JSON.stringify(inspectResponse(JSON.parse(input.value)),null,2)}catch(e){out.textContent='Error: '+e.message}};document.querySelector('#clear').onclick=()=>{input.value='';out.textContent='Cleared.'};</script></body></html>

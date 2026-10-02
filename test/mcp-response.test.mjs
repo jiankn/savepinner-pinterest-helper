@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';
+import { inspectResponse } from '../docs/mcp-response-core.mjs';
+assert.equal(inspectResponse({jsonrpc:'2.0',error:{message:'missing method'}}).status,'protocol-error');
+assert.equal(inspectResponse({isError:true,content:[{type:'text',text:'Invalid URL'}]}).status,'tool-error');
+assert.equal(inspectResponse({structuredContent:{isPinterestUrl:false}}).status,'unsupported-url');
+assert.equal(inspectResponse({structuredContent:{kind:'board',normalizedUrl:'https://www.pinterest.com/a/b/'}}).downloadReady,false);
+assert.equal(inspectResponse({jsonrpc:'2.0',result:{structuredContent:{kind:'short',normalizedUrl:'https://pin.it/example/'}}}).status,'short');
+assert.throws(()=>inspectResponse({structuredContent:{normalizedUrl:'javascript:alert(1)'}}));
+assert.throws(()=>inspectResponse(null));
+console.log('MCP response fixtures passed');
